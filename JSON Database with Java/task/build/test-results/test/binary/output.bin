@@ -1,0 +1,7 @@
+[1;31m
+Start test 1[0m
+Server started!
+Client started!
+Sent: {"type":"exit","key":0}
+Error: Socket is closed
+6Error communicating with the server: Connection reset

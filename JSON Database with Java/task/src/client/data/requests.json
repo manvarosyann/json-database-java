@@ -1,0 +1,38 @@
+[
+  {
+    "type": "set",
+    "key": "person",
+    "value": {
+      "name": "Alice",
+      "age": 30
+    }
+  },
+  {
+    "type": "get",
+    "key": "person"
+  },
+  {
+    "type": "set",
+    "key": "company.location",
+    "value": "New York"
+  },
+  {
+    "type": "get",
+    "key": "company"
+  },
+  {
+    "type": "delete",
+    "key": "person.age"
+  },
+  {
+    "type": "get",
+    "key": "person"
+  },
+  {
+    "type": "exit"
+  }
+]
+
+
+
+

@@ -1,0 +1,29 @@
+type: edu
+files:
+  - name: src/client/Main.java
+    visible: true
+    learner_created: false
+  - name: src/server/Main.java
+    visible: true
+    learner_created: false
+  - name: test/JsonDatabaseTest.java
+    visible: false
+    learner_created: false
+  - name: test/JsonFinder.java
+    visible: false
+    learner_created: false
+  - name: src/server/Database.java
+    visible: true
+    learner_created: true
+  - name: src/client/Client.java
+    visible: true
+    learner_created: true
+  - name: src/server/Server.java
+    visible: true
+    learner_created: true
+feedback_link: https://hyperskill.org/learn/step/5493#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Thu, 10 Apr 2025 13:06:52 UTC"
+record: 4
