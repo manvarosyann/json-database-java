@@ -1,0 +1,47 @@
+# Ignore compiled class files
+*.class
+
+# Ignore log files
+*.log
+
+# Ignore the directory that stores build artifacts
+/build/
+
+# Ignore the directory where Gradle stores files
+.gradle/
+
+# Ignore IDE-specific files (IntelliJ IDEA, Eclipse, etc.)
+.idea/
+*.iml
+
+# Ignore generated files for Gradle and Maven
+/.gradle/
+*.jar
+*.war
+*.ear
+*.class
+
+# Ignore dependencies downloaded via Gradle or Maven
+/.mvn/
+target/
+out/
+
+# Ignore user-specific files created by IntelliJ IDEA
+/.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/.name
+/.idea/.idea/
+
+# Ignore MacOS-specific files
+.DS_Store
+
+# Ignore Windows-specific files
+Thumbs.db
+
+# Ignore Eclipse-specific files
+/.project
+/.classpath
+/.settings/
+
+# Ignore temporary files created by some editors (e.g. Vim, Emacs)
+*.swp
