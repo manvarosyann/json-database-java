@@ -6,7 +6,9 @@ import com.google.gson.JsonParser;
 
 import java.io.*;
 import java.net.Socket;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class Client {
     private final String serverAddress;
@@ -25,14 +27,6 @@ public class Client {
     public Client() {
         serverAddress = "127.0.0.1";
         serverPort = 23456;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     public String getInputFile() {
@@ -65,18 +59,16 @@ public class Client {
 
     public void readRequestFromFile(String fileName) {
         String workingDirectory = System.getProperty("user.dir");
-        String filePath = workingDirectory + "/src/client/data/" + inputFile;
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line;
+        String filePath = workingDirectory + "/src/client/data/" + fileName;
 
-            while ((line = reader.readLine()) != null) {
+        try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+            lines.forEach(line -> {
                 JsonObject request = JsonParser.parseString(line).getAsJsonObject();
                 System.out.println("Request: " + request.toString());
-            }
-            reader.close();
+            });
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
     }
 }
+

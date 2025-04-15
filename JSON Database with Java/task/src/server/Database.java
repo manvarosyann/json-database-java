@@ -5,12 +5,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -36,7 +34,7 @@ public class Database {
         try {
             File dbFile = new File(dbFilePath);
             if (dbFile.exists()) {
-                try (FileReader reader = new FileReader(dbFile)) {
+                try (BufferedReader reader = Files.newBufferedReader(Paths.get(dbFilePath))) {
                     Gson gson = new Gson();
                     Map<String, JsonElement> loadedData = gson.fromJson(reader, Map.class);
                     if (loadedData != null) {
@@ -53,7 +51,7 @@ public class Database {
 
     private void saveDatabase() {
         writeLock.lock();
-        try (FileWriter writer = new FileWriter(dbFilePath)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(dbFilePath))) {
             Gson gson = new Gson();
             gson.toJson(database, writer);
         } catch (IOException e) {
@@ -108,7 +106,7 @@ public class Database {
         writeLock.lock();
         try {
             JsonElement current = getJsonElement(keyPath, false);
-            if (current != null && !current.isJsonObject()) {
+            if (current != null && current.isJsonObject()) {
                 JsonObject jsonObject = current.getAsJsonObject();
                 jsonObject.remove(keyPath[keyPath.length - 1]);
                 saveDatabase();
@@ -138,8 +136,8 @@ public class Database {
             if (current.isJsonObject()) {
                 current = current.getAsJsonObject().get(keyPath[i]);
             } else if (current.isJsonArray()) {
-                JsonArray jsonArray = current.getAsJsonArray();
-                current = jsonArray.get(Integer.parseInt(keyPath[i]));
+                current = current.getAsJsonArray().get(Integer.parseInt(keyPath[i])
+                );
             }
         }
         return current;
@@ -152,3 +150,4 @@ public class Database {
         return responseJson;
     }
 }
+
