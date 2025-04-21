@@ -1,10 +1,1 @@
-{
-  "person": {
-    "name": "Alice",
-    "age": 30
-  },
-  "company": {
-    "name": "TechCorp",
-    "location": "New York"
-  }
-}
+{}

@@ -3,7 +3,6 @@ package server;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
-    private Database database;
+    private final Database database;
     private final String address;
     private final int port;
     private final ExecutorService executor;
@@ -33,11 +32,14 @@ public class Server {
             System.out.println("Server started!");
 
             while (true) {
-                try (Socket socket = server.accept()) {
-                    executor.submit(() -> handleClient(socket));
-                } catch (IOException e) {
-                    System.out.println("Error: " + e.getMessage());
-                }
+                Socket socket = server.accept();
+                executor.submit(() -> {
+                    try (socket) {
+                        handleClient(socket);
+                    } catch (IOException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                });
             }
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
@@ -45,8 +47,10 @@ public class Server {
     }
 
     private void handleClient(Socket socket) {
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        try (
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
+        ) {
 
             String command = in.readLine();
             if (command != null) {
@@ -57,9 +61,7 @@ public class Server {
 
                 switch (action) {
                     case "set":
-                        String value = request.get("value").getAsString();
-                        JsonElement valueJson = new JsonObject();
-                        valueJson = new JsonPrimitive(value);
+                        JsonElement valueJson = request.get("value");
                         response = database.set(new String[]{key}, valueJson);
                         break;
                     case "get":

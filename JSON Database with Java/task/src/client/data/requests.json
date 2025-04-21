@@ -3,7 +3,7 @@
     "type": "set",
     "key": "person",
     "value": {
-      "name": "Alice",
+      "name": "Bob",
       "age": 30
     }
   },
@@ -12,26 +12,17 @@
     "key": "person"
   },
   {
-    "type": "set",
-    "key": "company.location",
-    "value": "New York"
-  },
-  {
-    "type": "get",
-    "key": "company"
-  },
-  {
     "type": "delete",
-    "key": "person.age"
+    "key": "person"
   },
   {
     "type": "get",
     "key": "person"
-  },
-  {
-    "type": "exit"
   }
 ]
+
+
+
 
 
 
